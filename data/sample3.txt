@@ -1,0 +1,17 @@
+Cloud Computing
+
+Cloud computing is a technology that provides computing resources over the internet.
+
+These resources can include servers, storage, databases, networking, and software applications.
+
+Cloud computing allows organizations to use computing resources without maintaining all physical hardware themselves.
+
+There are three common cloud service models: Infrastructure as a Service, Platform as a Service, and Software as a Service.
+
+Infrastructure as a Service provides virtual machines, storage, and networking resources.
+
+Platform as a Service provides an environment where developers can build and deploy applications.
+
+Software as a Service provides software applications through the internet.
+
+Cloud computing is commonly used for web applications, data storage, backups, application deployment, and large-scale data processing.

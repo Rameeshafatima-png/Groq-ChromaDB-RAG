@@ -1,0 +1,11 @@
+Artificial Intelligence
+
+Artificial Intelligence, commonly called AI, is a field of computer science that focuses on creating systems that can perform tasks that normally require human intelligence.
+
+AI systems can learn from data, recognize patterns, understand language, and make decisions. Common examples of AI include virtual assistants, recommendation systems, chatbots, and image recognition.
+
+Machine learning is an important part of artificial intelligence. Machine learning allows computers to learn patterns from data without being explicitly programmed for every task.
+
+AI is used in many areas including healthcare, education, finance, transportation, customer service, and entertainment.
+
+The main goal of artificial intelligence is to develop systems that can process information and perform useful tasks efficiently.

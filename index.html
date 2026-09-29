@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>RAGFlow — Groq + ChromaDB</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="logo">
+                R
+            </div>
+
+            <div>
+
+                <h2>RAGFlow</h2>
+
+                <span>
+                    Groq + ChromaDB
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                data-page="home"
+            >
+                <span>⌂</span>
+                Home
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="documents"
+            >
+                <span>▤</span>
+                Documents
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="chat"
+            >
+                <span>◌</span>
+                Ask Questions
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="database"
+            >
+                <span>▦</span>
+                Vector Database
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="settings"
+            >
+                <span>⚙</span>
+                Settings
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-card">
+
+                <span class="green-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Ready
+                    </strong>
+
+                    <small>
+                        Groq · ChromaDB · RAG
+                    </small>
+
+                </div>
+
+            </div>
+
+            <p>
+                Upload documents, search your
+                knowledge base and get AI answers.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                Workspace / RAG Assistant
+            </div>
+
+            <div class="top-right">
+
+                <button
+                    id="themeButton"
+                    class="theme-button"
+                >
+                    ☼
+                </button>
+
+                <div class="profile">
+
+                    <div class="avatar">
+                        U
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Workspace
+                        </strong>
+
+                        <small>
+                            Local session
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="content">
+
+
+            <!-- HOME -->
+
+            <section
+                id="home"
+                class="page active-page"
+            >
+
+                <div class="hero">
+
+                    <div class="hero-content">
+
+                        <div class="eyebrow">
+                            <span></span>
+                            AI KNOWLEDGE WORKSPACE
+                        </div>
+
+
+                        <h1>
+                            Ask your documents.
+                            <br>
+
+                            <strong>
+                                Get grounded answers.
+                            </strong>
+                        </h1>
+
+
+                        <p>
+                            Upload your documents and let
+                            your RAG pipeline search ChromaDB
+                            before generating an answer with Groq.
+                        </p>
+
+
+                        <div class="hero-buttons">
+
+                            <button
+                                class="primary"
+                                id="uploadHero"
+                            >
+                                + Upload documents
+                            </button>
+
+
+                            <button
+                                class="secondary"
+                                data-page-button="chat"
+                            >
+                                Ask a question →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero-circle">
+
+                        <div class="circle-large"></div>
+
+                        <div class="circle-small">
+
+                            <strong>
+                                RAG
+                            </strong>
+
+                            <span>
+                                AI
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATS -->
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <div class="stat-icon purple">
+                            ▤
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Documents
+                            </small>
+
+                            <strong id="documentCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-icon blue">
+                            ⌁
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Indexed chunks
+                            </small>
+
+                            <strong id="chunkCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-icon green">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <small>
+                                System
+                            </small>
+
+                            <strong id="statusText">
+                                Ready
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-icon orange">
+                            ◉
+                        </div>
+
+                        <div>
+
+                            <small>
+                                Vector Store
+                            </small>
+
+                            <strong>
+                                ChromaDB
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MAIN CARDS -->
+
+                <div class="grid">
+
+
+                    <!-- UPLOAD -->
+
+                    <div class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <small>
+                                    KNOWLEDGE BASE
+                                </small>
+
+                                <h2>
+                                    Upload documents
+                                </h2>
+
+                            </div>
+
+                            <span class="badge">
+                                PDF · TXT · MD
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="dropzone"
+                            id="dropzone"
+                        >
+
+                            <input
+                                type="file"
+                                id="fileInput"
+                                multiple
+                                hidden
+                                accept=".pdf,.txt,.md,.docx"
+                            >
+
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+
+                            <h3>
+                                Drop files here
+                            </h3>
+
+
+                            <p>
+                                or
+                                <button id="browseButton">
+                                    browse from your computer
+                                </button>
+                            </p>
+
+
+                            <small>
+                                Multiple files supported
+                            </small>
+
+                        </div>
+
+
+                        <div
+                            id="fileList"
+                            class="file-list"
+                        ></div>
+
+
+                        <button
+                            class="wide-button"
+                            id="ingestButton"
+                        >
+                            Index selected documents
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- ASK -->
+
+                    <div class="card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <small>
+                                    RAG ASSISTANT
+                                </small>
+
+                                <h2>
+                                    Ask your knowledge base
+                                </h2>
+
+                            </div>
+
+                            <span class="live">
+                                ● Groq connected
+                            </span>
+
+                        </div>
+
+
+                        <div class="question-box">
+
+                            <textarea
+                                id="question"
+                                placeholder="Ask something about your uploaded documents..."
+                            ></textarea>
+
+
+                            <div class="question-footer">
+
+                                <span>
+                                    Search → Retrieve → Generate
+                                </span>
+
+
+                                <button
+                                    class="primary ask"
+                                    id="askButton"
+                                >
+                                    Ask ↗
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="answer"
+                            class="answer"
+                        >
+
+                            <div class="empty">
+
+                                <div>
+                                    ✦
+                                </div>
+
+                                <strong>
+                                    Your answer will appear here
+                                </strong>
+
+                                <span>
+                                    Ask a question to search your
+                                    ChromaDB knowledge base.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- DOCUMENTS -->
+
+            <section
+                id="documents"
+                class="page"
+            >
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <small>
+                            KNOWLEDGE BASE
+                        </small>
+
+                        <h1>
+                            Your documents
+                        </h1>
+
+                        <p>
+                            Documents selected in this session.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="primary"
+                        id="uploadDocuments"
+                    >
+                        + Add documents
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="documentsTable"
+                    class="documents-table"
+                ></div>
+
+            </section>
+
+
+
+            <!-- CHAT -->
+
+            <section
+                id="chat"
+                class="page"
+            >
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <small>
+                            RAG ASSISTANT
+                        </small>
+
+                        <h1>
+                            Ask questions
+                        </h1>
+
+                        <p>
+                            Search your indexed documents.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat-container">
+
+                    <div
+                        id="chatMessages"
+                        class="chat-messages"
+                    >
+
+                        <div class="chat-empty">
+
+                            <div>
+                                ✦
+                            </div>
+
+                            <h2>
+                                What would you like to know?
+                            </h2>
+
+                            <p>
+                                Ask a question about your documents.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chat-input">
+
+                        <textarea
+                            id="chatQuestion"
+                            placeholder="Type your question..."
+                        ></textarea>
+
+
+                        <button
+                            class="primary"
+                            id="chatSend"
+                        >
+                            Send ↗
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- DATABASE -->
+
+            <section
+                id="database"
+                class="page"
+            >
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <small>
+                            STORAGE
+                        </small>
+
+                        <h1>
+                            Vector Database
+                        </h1>
+
+                        <p>
+                            ChromaDB storage information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="database-card">
+
+                    <div class="database-icon">
+                        DB
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            CHROMADB
+                        </small>
+
+                        <h2>
+                            Semantic vector storage
+                        </h2>
+
+                        <p>
+                            Your document chunks and embeddings
+                            are stored here for semantic retrieval.
+                        </p>
+
+
+                        <div class="db-info">
+
+                            <span>
+                                ● Local collection
+                            </span>
+
+                            <span id="databaseChunks">
+                                0 chunks
+                            </span>
+
+                            <span>
+                                ● Ready
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SETTINGS -->
+
+            <section
+                id="settings"
+                class="page"
+            >
+
+                <div class="page-heading">
+
+                    <div>
+
+                        <small>
+                            CONFIGURATION
+                        </small>
+
+                        <h1>
+                            Settings
+                        </h1>
+
+                        <p>
+                            RAG API configuration.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <label>
+                        API Base URL
+                    </label>
+
+
+                    <div class="api-row">
+
+                        <input
+                            id="apiUrl"
+                            placeholder="http://127.0.0.1:8000"
+                        >
+
+
+                        <button
+                            class="secondary"
+                            id="saveApi"
+                        >
+                            Save
+                        </button>
+
+                    </div>
+
+
+                    <small>
+                        When this UI is served by FastAPI,
+                        leave this field empty.
+                    </small>
+
+
+                    <hr>
+
+
+                    <div class="connection">
+
+                        <span class="green-dot"></span>
+
+                        <strong id="connectionStatus">
+                            Not tested
+                        </strong>
+
+
+                        <button
+                            class="secondary"
+                            id="testApi"
+                        >
+                            Test API
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <footer>
+
+                RAGFlow · Groq + ChromaDB · Retrieval-Augmented Generation
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script src="/script.js"></script>
+
+</body>
+
+</html>
